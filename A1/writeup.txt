@@ -1,0 +1,22 @@
+1. Set up AWS account and install required applications on AWS server
+	- Create AWS instance with free tier settings and make sure all ports and protocols are set correctly so you can SSH into server and access webpage
+	- Use SSH service (FileZilla) to SSH into server and upload index.php (hello world) file
+	- Use Putty, PuttyKeygen and Pageant to Create key, SSH into AWS server and install and run required applications(apache)
+	- Test to see if website works (displays "hello world")
+
+2. Set up DBS with AWS and upload player stats
+	- step up DBS instance with free tier settings
+	- format data in csv file make sure data is well organized (remove white space, remove first row, rename column names)
+	- using the upload data to DBS server using phpmyadmin
+		- Add DBS databse to config file in xammp to get alter DBS database
+		- upload formated csv file to newly create table on DBS, also made sure to use first row as column names
+
+3. Write webpage php code and query data
+	- test sample queries using PDO to make sure data is being received from DBS and is easily queriable
+	- Add Nba logo to webpage
+	- Add form for name submission to webpage
+	- Set up PDO and SQL search query to get results based on submitted name from form.
+		- make sure search term is contained in player name(ability to search part of name) and is case incensitive 
+	- Saved player stats in player object (in seperate file player.php)
+	- Display player object results in html table showing Name, ppg, team, gp, reb, ast
+	- center all elements on webpage (make page look nice)

@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    
+    <input type="text" name="value" id="term"><br><br>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        var $input = $('#term');
+
+        //on keyup, start the countdown
+        $input.on('keyup', sendRequest);
+        function sendRequest() {
+            $test = document.getElementById("term").value.toLowerCase();
+            var table = document.getElementById("results");
+            if ($test == "") {
+                table.innerHTML = "";
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "WebService1.asmx/getResults",
+                    data: JSON.stringify({ "term": $test }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        onSuccess(msg);
+                    },
+                    error: function (msg) {
+                        console.log(msg);
+                        alert("fail");
+                    }
+                });
+            }
+        }
+
+        function onSuccess(msg) {
+            console.log(msg);
+            console.log($test);
+            var table = document.getElementById("results");
+            var f = JSON.parse(msg.d);
+            table.innerHTML = "";
+            var length = Math.min(Object.keys(f).length, 10);
+            if (length == 0) {
+                var row = table.insertRow(i);
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = "No Results";
+            } else {
+                for (var i = 0; i < length; i++) {
+                    var row = table.insertRow(i);
+                    var cell1 = row.insertCell(0);
+                    cell1.innerHTML = f[i];
+                }
+            }
+        }
+    </script>
+    <table id="results"></table>
+
+</body>
+</html>

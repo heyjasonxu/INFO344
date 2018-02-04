@@ -1,0 +1,13 @@
+C:\Users\Jason\Documents\INFO 344\A2\A2\bin\A2.dll.config
+C:\Users\Jason\Documents\INFO 344\A2\A2\bin\A2.dll
+C:\Users\Jason\Documents\INFO 344\A2\A2\bin\A2.pdb
+C:\Users\Jason\Documents\INFO 344\A2\A2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Jason\Documents\INFO 344\A2\A2\bin\Microsoft.WindowsAzure.Storage.dll
+C:\Users\Jason\Documents\INFO 344\A2\A2\bin\Microsoft.Data.Edm.dll
+C:\Users\Jason\Documents\INFO 344\A2\A2\bin\Microsoft.Data.Services.Client.dll
+C:\Users\Jason\Documents\INFO 344\A2\A2\bin\Microsoft.Data.OData.dll
+C:\Users\Jason\Documents\INFO 344\A2\A2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Jason\Documents\INFO 344\A2\A2\obj\Release\A2.csprojResolveAssemblyReference.cache
+C:\Users\Jason\Documents\INFO 344\A2\A2\obj\Release\A2.csproj.CoreCompileInputs.cache
+C:\Users\Jason\Documents\INFO 344\A2\A2\obj\Release\A2.dll
+C:\Users\Jason\Documents\INFO 344\A2\A2\obj\Release\A2.pdb

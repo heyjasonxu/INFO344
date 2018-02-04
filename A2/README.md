@@ -1,5 +1,5 @@
 Azure URL: https://info344jx.azurewebsites.net/HtmlPage1.html
-Github URL: 
+Github URL: https://github.com/heyjasonxu/info344/tree/master/A2
 
 1. Build Trie data structure
 	- create node and tree class

@@ -1,0 +1,2 @@
+Add article text body to table
+	- There will be another attribute called text whenever a entity is saved to Azure table

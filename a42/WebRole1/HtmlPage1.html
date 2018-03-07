@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <h2>CNN WebCrawler</h2>
+    <button type="button" id="start">Start</button>
+    <button type="button" id="stop">Stop</button>
+    <button type="button" id="clear">Clear Index</button> <br />
+    <div id="crawled">#URL's Crawled: 0</div>
+
+    <script type="text/javascript">
+        var $start = $('#start');
+        var $stop = $('#stop');
+        var $clear = $('#clear');
+
+        $start.click(startCrawl);
+        $stop.click(stopCrawl);
+        $clear.click(getData);
+
+        window.setInterval(function () {
+            getData();
+            alert("working");
+        }, 5000);
+
+        function startCrawl() {
+
+            $.ajax({
+                type: "POST",
+                url: "WebService1.asmx/StartCrawling",
+                data: JSON.stringify({}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    alert("Success");
+                },
+                error: function (msg) {
+                    console.log(msg);
+                    alert("fail");
+                }
+            });
+        }
+
+        function stopCrawl() {
+            $.ajax({
+                type: "POST",
+                url: "WebService1.asmx/StopCrawling",
+                data: JSON.stringify({}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    alert("Success");
+                },
+                error: function (msg) {
+                    console.log(msg);
+                    alert("fail");
+                }
+            });
+        }
+
+        function emptyQueue() {
+            $.ajax({
+                type: "POST",
+                url: "WebService1.asmx/ClearIndex",
+                data: JSON.stringify({}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    alert("Success");
+                },
+                error: function (msg) {
+                    console.log(msg);
+                    alert("fail");
+                }
+            });
+        }
+
+        function getData() {
+            $.ajax({
+                type: "POST",
+                url: "WebService1.asmx/getData",
+                data: JSON.stringify({}),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (msg) {
+                    console.log(msg);
+                    if (msg != null) {
+                        displayData(msg);
+                    }
+                },
+                error: function (msg) {
+                    console.log(msg);
+                    alert("fail");
+                }
+            });
+        }
+
+        function displayData(msg) {
+            var f = JSON.parse(msg.d);
+            document.getElementById("crawled").innerText = "#URL's Crawled: " + f[0];
+            var table = document.getElementById("results");
+            table.innerHTML = "";
+            var length = Object.keys(f[1]).length;
+            if (length == 0) {
+                var row = table.insertRow(i);
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = "No Results";
+            } else {
+                for (var i = 0; i < length; i++) {
+                    var row = table.insertRow(i);
+                    var cell1 = row.insertCell(0);
+                    cell1.innerHTML = f[1][i];
+                }
+            }
+            document.getElementById("queue_size").innerText = "Queue Size: " + f[2];
+            console.log(f[2]);
+        }
+
+
+    </script>
+    <div>Last 10 URL's Crawled</div>
+    <table border="1" id="results"></table>
+    <div id="queue_size"></div>
+
+</body>
+</html>

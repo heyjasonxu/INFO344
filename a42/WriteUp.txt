@@ -1,0 +1,23 @@
+Initial Setup
+	- create a cloud service with one web role and two worker roles
+	- create webcrawler class to help crawl through urls
+	- create links class for when you enter object into Azure table
+	
+Webcrawler
+	- create methods to read robots.txt to get sitemaps
+	- read each xml file and crawl through each of those
+	- as sites are being crawled get to see if conditions match on assigment spec
+		- link ends with .html or .htm
+		- isn't older than December of 2017
+		- has't already been viewed
+		- make sure link is a cnn link
+	- if link is valid create a message queue with url
+ 	- worker than takes url, and gets title, data, and article text using html parser and saves it to azure table
+	- Than parse each url and get links, then use BFS to crawl through each of these links
+
+Set up html
+	- create title
+	- create start, stop, reset button
+	- text for # or urls, and table for last 10 urls
+	- write ajax functions to call webmethod functions from webrole
+	- update data every 5 secs	

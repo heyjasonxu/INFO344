@@ -15,10 +15,26 @@ if(isset($_GET['name'])) {
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);    
         
         $stmt = $conn->prepare("SELECT * FROM `15-16nba_stats` WHERE Name LIKE '%$term%'");
+        
         $stmt->execute();
+        // if($stmt->rowCount() == 1) {
+            while($row = $stmt->fetch()) {
+            $player = new Player($row);
+            // $data = ["name" => $player->getName(),
+            //         "team" => $player->getTeam(),
+            //         "gp" => $player->getGp(),
+            //         "ppg" => $player->getPpg(),
+            //         "reb" => $player->getReb(),
+            //         "Ast" => $player->getAst()];
+            $data = ["name" => "test"];
+                    header('Content-Type: application/json');
+                    echo json_encode( $data );
+        // }
+            }
+                
         ?>
 
-        <table style="width:50%" border="1" align="center">
+        <!-- <table style="width:50%" border="1" align="center">
         <tr>
               <th>Name</th>
               <th>Team</th>
@@ -26,21 +42,21 @@ if(isset($_GET['name'])) {
               <th>PPG</th>
               <th>REB</th>
               <th>AST</th>
-            </tr>
+            </tr> -->
         <?php
 
         while($row = $stmt->fetch()) {
             $player1 = new Player($row);
             $player_name = $player1->getName();
             ?>
-            <tr>
+            <!-- <tr>
               <td><?php echo $player1->getName();?></td>
               <td><?php echo $player1->getTeam();?></td>
               <td><?php echo $player1->getGp();?></td>
               <td><?php echo $player1->getPpg();?></td>
               <td><?php echo $player1->getReb();?></td>
               <td><?php echo $player1->getAst();?></td>
-            </tr>
+            </tr> -->
             <?php
             
         }

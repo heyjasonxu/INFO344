@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-9405715981634263",
+            enable_page_level_ads: true
+        });
+    </script>
+    <title></title>
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <h2>NBA CNN Search</h2>
+    <div id="search"><input style="margin: 0 auto;" name="value" id="term"><br><br></div>
+
+
+    <script type="text/javascript">
+        var $input = $('#term');
+        //on keyup, start the countdown
+        $input.on('keyup', search);
+
+        function search() {
+            cnn();
+            sendRequest();
+        }
+
+        function cnn() {
+            console.log("cnn");
+            $test = document.getElementById("term").value.toLowerCase();
+            var table = document.getElementById("results");
+            if ($test == "") {
+                table.innerHTML = "";
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "WebService1.asmx/queryTable",
+                    data: JSON.stringify({ "term": $test }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        onSuccessCnn(msg);
+                    },
+                    error: function (msg) {
+                        console.log(msg);
+                        alert("fail");
+                    }
+                });
+            }
+        }
+
+        function onSuccessCnn(msg) {
+            console.log(msg);
+            console.log($test);
+            var table = document.getElementById("results");
+            var f = JSON.parse(msg.d);
+            table.innerHTML = "";
+            var length = Math.min(Object.keys(f).length, 10);
+            if (length == 0) {
+                var row = table.insertRow(i);
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = "No Results";
+            } else {
+                for (var i = 0; i < length; i++) {
+                    var row = table.insertRow(i);
+                    var cell1 = row.insertCell(0);
+                    cell1.innerHTML = f[i];
+                }
+            }
+        }
+
+        function logResults(json) {
+            console.log(json["name"]);
+            var table = document.getElementById("nba");
+            if (json["name"] != null) {
+                var keys = [];
+                for (var k in json) keys.push(k);
+                var table = document.getElementById("nba");
+                var count = 0;
+                for (var i = 0; i < 2; i++) {
+                    var tr = document.createElement("tr");
+                    
+                    if (count == 0) {
+                        for (var j = 0; j < 6; j++) {
+                                var td = document.createElement("td");
+                                var txt = document.createTextNode(keys[j].toUpperCase());
+                                td.appendChild(txt);
+                                tr.appendChild(td);
+                        }
+                        count++;
+                        table.appendChild(tr);
+                    }
+                    else 
+                    {
+                        for (var j = 0; j < 6; j++) {
+                                var td = document.createElement("td");
+                                var txt = document.createTextNode(json[keys[j]]);
+                                td.appendChild(txt);
+                                tr.appendChild(td);
+                            
+                        }
+                        table.appendChild(tr);
+                        
+                    }
+                    
+                }
+                
+
+                
+                
+            }
+        }
+
+
+        function sendRequest() {
+            console.log("nba");
+            $test = document.getElementById("term").value.toLowerCase();
+            var table = document.getElementById("nba");
+            
+            if ($test == "") {
+                table.innerHTML = "";
+            } else {
+                $.ajax({
+                    type: "GET",
+                    url: "http://ec2-34-211-1-81.us-west-2.compute.amazonaws.com/index.php",
+                    data: { 'name' : $test },
+                    contentType: "application/json;",
+                    dataType: 'jsonp',
+                    jsonp: 'callback',
+                    jsonpCallback: "logResults",
+                    success: function (msg) {
+                        //onSuccess(msg);
+                    },
+                    error: function (msg) {
+                        console.log(msg);
+                    }
+                });
+            }
+        }
+
+        function onSuccess(msg) {
+            console.log(msg);
+            console.log($test);
+            var table = document.getElementById("nba");
+            var f = JSON.parse(msg.d);
+            table.innerHTML = "";
+            var length = Math.min(Object.keys(f).length, 10);
+            if (length == 0) {
+                var row = table.insertRow(i);
+                var cell1 = row.insertCell(0);
+                cell1.innerHTML = "No Results";
+            } else {
+                for (var i = 0; i < length; i++) {
+                    var row = table.insertRow(i);
+                    var cell1 = row.insertCell(0);
+                    cell1.innerHTML = f[i];
+                }
+            }
+        }
+
+
+    </script>
+    <table id="nba"></table>
+    <table id="results"></table>
+
+
+</body>
+</html>
